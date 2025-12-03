@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public class CategoryDialogController {
 
     @FXML private Label titleLabel;
+    @FXML private TextField idField;
     @FXML private TextField nameField;
     @FXML private TextField descriptionField;
 
@@ -27,10 +28,12 @@ public class CategoryDialogController {
 
         if (category != null) {
             titleLabel.setText("Update Kategori");
+            idField.setText(category.getId());
             nameField.setText(category.getName());
             descriptionField.setText(category.getDescription());
         } else {
             titleLabel.setText("Tambah Kategori Baru");
+            idField.setText(DataService.getInstance().generateNextCategoryId());
         }
     }
 
@@ -48,7 +51,8 @@ public class CategoryDialogController {
                 category.setName(name);
                 category.setDescription(description);
             } else {
-                category = new Category(name, description);
+                // ID is already generated and displayed in idField
+                category = new Category(idField.getText(), name, description);
                 DataService.getInstance().addCategory(category);
             }
 

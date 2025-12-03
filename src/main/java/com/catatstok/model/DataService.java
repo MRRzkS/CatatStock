@@ -114,9 +114,7 @@ public class DataService {
     }
 
     public void addTransaction(StockTransaction transaction) {
-        transactions.add(0, transaction); // Add to top
-        
-        // Update item stock
+        // Update item stock FIRST, so listeners on transactions see updated stock
         for (Item item : items) {
             if (item.getSku().equals(transaction.getItemSku())) {
                 if ("Stok Masuk".equals(transaction.getType())) {
@@ -127,6 +125,8 @@ public class DataService {
                 break;
             }
         }
+        
+        transactions.add(0, transaction); // Add to top, triggers listener
         saveData();
     }
 
@@ -142,5 +142,23 @@ public class DataService {
     public void deleteCategory(Category category) {
         categories.remove(category);
         saveData();
+    }
+
+    public String generateNextCategoryId() {
+        int maxId = 0;
+        for (Category c : categories) {
+            String id = c.getId();
+            if (id.startsWith("KAT-")) {
+                try {
+                    int num = Integer.parseInt(id.substring(4));
+                    if (num > maxId) {
+                        maxId = num;
+                    }
+                } catch (NumberFormatException e) {
+                    // Ignore invalid formats
+                }
+            }
+        }
+        return String.format("KAT-%03d", maxId + 1);
     }
 }

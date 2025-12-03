@@ -57,6 +57,17 @@ public class MainLayoutController implements Initializable {
     private void showDashboard() {
         loadView("DashboardView");
         setActiveButton(btnDashboard);
+        
+        // Try to refresh dashboard if it's the current view
+        if (mainBorderPane.getCenter() != null) {
+            // Since we reload the view every time, the controller is re-initialized.
+            // So updateSummary() in initialize() is called.
+            // However, if we wanted to be sure, we could access the controller.
+            // But loadView creates a new instance. So initialize() IS called.
+            // The issue might be that the DATA itself isn't triggering updates when stock changes.
+            // But updateSummary() recalculates everything from DataService.
+            // So simply reloading the view SHOULD work.
+        }
     }
 
     @FXML

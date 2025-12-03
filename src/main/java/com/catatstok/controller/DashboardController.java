@@ -37,9 +37,13 @@ public class DashboardController {
     public void initialize() {
         updateSummary();
         
-        // Listen for changes
+        // Listen for changes in the lists themselves (add/remove)
         DataService.getInstance().getItems().addListener((ListChangeListener<Item>) c -> updateSummary());
         DataService.getInstance().getTransactions().addListener((ListChangeListener<StockTransaction>) c -> updateSummary());
+    }
+
+    public void refreshData() {
+        updateSummary();
     }
 
     private void updateSummary() {
@@ -55,7 +59,7 @@ public class DashboardController {
         
         // Recent Activity
         recentActivityList.getItems().clear();
-        DataService.getInstance().getTransactions().stream().limit(5).forEach(t -> {
+        DataService.getInstance().getTransactions().stream().limit(50).forEach(t -> {
             String activity = String.format("[%s] %s %s (%d)", 
                 t.getDate().format(DateTimeFormatter.ofPattern("HH:mm")),
                 t.getType(), t.getItemSku(), t.getQuantity());
