@@ -11,7 +11,7 @@
     <children>
         <Label fx:id="titleLabel" text="Tambah Kategori Baru" styleClass="h2" />
         
-        <Label fx:id="titleLabel" text="Tambah Kategori Baru" styleClass="h2" />
+
         
         <VBox spacing="5">
             <Label text="ID Kategori" style="-fx-font-weight: bold;"/>

@@ -24,30 +24,8 @@ public class DataService {
         
         loadData();
         
-        if (items.isEmpty()) {
-            // Add dummy items only if empty
-            items.add(new Item("ATK-001", "Buku Tulis Sinar Dunia 50 Lbr", "ATK", "Pcs", 120));
-            items.add(new Item("ELK-001", "Mouse Logitech M185", "Elektronik", "Unit", 45));
-            items.add(new Item("PGN-001", "Indomie Goreng", "Pangan", "Dus", 8));
-            
-            // Dummy transactions (depend on items)
-            transactions.add(new StockTransaction(LocalDateTime.now().minusMinutes(10), "Stok Masuk", "ATK-001", 50, "Admin"));
-            transactions.add(new StockTransaction(LocalDateTime.now().minusMinutes(5), "Stok Keluar", "ELK-001", 2, "Admin"));
-        }
+        // Dummy data generation removed as per user request
 
-        if (categories.isEmpty()) {
-            // Dummy categories
-            categories.add(new Category("ATK", "Alat Tulis Kantor", "Perlengkapan kantor sehari-hari"));
-            categories.add(new Category("Elektronik", "Elektronik", "Perangkat elektronik dan gadget"));
-            categories.add(new Category("Pangan", "Pangan", "Makanan dan minuman"));
-        }
-        
-        // Save only if we added something (or just save to be safe)
-        if (items.isEmpty() || categories.isEmpty()) { 
-             // This check is slightly wrong because we just added them. 
-             // But effectively we want to save if we initialized data.
-             saveData();
-        }
     }
 
     private void saveData() {
