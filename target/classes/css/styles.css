@@ -1,0 +1,136 @@
+/* Global Colors */
+* {
+    -color-primary: #4361ee;
+    -color-secondary: #3f37c9;
+    -color-accent: #4895ef;
+    -color-bg-default: #f8f9fa;
+    -color-text: #212529;
+    -color-sidebar-bg: #ffffff;
+    -color-sidebar-text: #6c757d;
+    -color-sidebar-text-selected: #4361ee;
+    -color-card-bg: #ffffff;
+    -color-danger: #dc3545;
+    -color-success: #198754;
+    -color-warning: #ffc107;
+}
+
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-background-color: -color-bg-default;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: -color-primary;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: -color-secondary;
+}
+
+.button-danger {
+    -fx-background-color: -color-danger;
+}
+
+.button-success {
+    -fx-background-color: -color-success;
+}
+
+/* Text Fields */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+}
+
+.text-field:focused {
+    -fx-border-color: -color-primary;
+    -fx-effect: dropshadow(three-pass-box, rgba(67, 97, 238, 0.25), 5, 0, 0, 0);
+}
+
+/* Cards */
+.card {
+    -fx-background-color: -color-card-bg;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 5);
+    -fx-padding: 20;
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: -color-sidebar-bg;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 5, 0);
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-sidebar-text;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+    -fx-padding: 12 20;
+    -fx-cursor: hand;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #f1f3f5;
+    -fx-text-fill: -color-primary;
+}
+
+.sidebar-button-selected {
+    -fx-background-color: #e7f5ff;
+    -fx-text-fill: -color-primary;
+    -fx-border-color: transparent transparent transparent -color-primary;
+    -fx-border-width: 0 0 0 4;
+}
+
+/* Headings */
+.h1 {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+.h2 {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -color-text;
+}
+
+/* Table View */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: transparent transparent #dee2e6 transparent;
+    -fx-border-width: 1;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #6c757d;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f1f3f5 transparent;
+    -fx-border-width: 1;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e7f5ff;
+}

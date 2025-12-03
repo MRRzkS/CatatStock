@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catatstok.controller.DashboardController">
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+    <children>
+        <Label text="Selamat Datang, Admin!" styleClass="h1" />
+        
+        <HBox spacing="20.0">
+            <children>
+                <VBox prefHeight="120.0" prefWidth="300.0" styleClass="card">
+                    <children>
+                        <Label text="Total Jenis Barang" textFill="#6c757d" />
+                        <Label fx:id="totalItemsLabel" text="0" textFill="#4361ee">
+                            <font>
+                                <Font name="System Bold" size="36.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox prefHeight="120.0" prefWidth="300.0" styleClass="card">
+                    <children>
+                        <Label text="Total Stok Gudang" textFill="#6c757d" />
+                        <Label fx:id="totalStockLabel" text="0" textFill="#4361ee">
+                            <font>
+                                <Font name="System Bold" size="36.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox prefHeight="120.0" prefWidth="300.0" styleClass="card">
+                    <children>
+                        <Label text="Transaksi Hari Ini" textFill="#6c757d" />
+                        <Label fx:id="todayTransactionsLabel" text="0" textFill="#198754">
+                            <font>
+                                <Font name="System Bold" size="36.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <Label text="Akses Cepat" styleClass="h2">
+            <VBox.margin>
+                <Insets top="10.0" />
+            </VBox.margin>
+        </Label>
+
+        <HBox spacing="20.0">
+            <Button text="+ Tambah Barang Baru" styleClass="button" prefWidth="300" onAction="#goToAddItem"/>
+            <Button text="+ Catat Stok Masuk" styleClass="button, button-success" prefWidth="300" onAction="#goToInbound"/>
+            <Button text="- Catat Stok Keluar" styleClass="button, button-danger" prefWidth="300" onAction="#goToOutbound"/>
+        </HBox>
+
+        <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+            <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                <Label text="Aktivitas Terkini" styleClass="h2"/>
+                <javafx.scene.control.ListView fx:id="recentActivityList" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
+            </VBox>
+            <VBox styleClass="card" HBox.hgrow="ALWAYS">
+                <Label text="Barang Segera Habis (Stok &lt; 10)" styleClass="h2"/>
+                <javafx.scene.control.ListView fx:id="lowStockList" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;"/>
+            </VBox>
+        </HBox>
+    </children>
+</VBox>

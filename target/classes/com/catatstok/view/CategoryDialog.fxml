@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catatstok.controller.CategoryDialogController" style="-fx-background-color: white; -fx-padding: 20;">
+    <children>
+        <Label fx:id="titleLabel" text="Tambah Kategori Baru" styleClass="h2" />
+        
+        <VBox spacing="5">
+            <Label text="Nama Kategori" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="nameField" promptText="Contoh: Elektronik" />
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="Deskripsi" style="-fx-font-weight: bold;"/>
+            <TextField fx:id="descriptionField" promptText="Deskripsi singkat..." />
+        </VBox>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-padding: 10 0 0 0;">
+            <Button text="Batal" onAction="#handleCancel" style="-fx-background-color: #e9ecef; -fx-text-fill: #495057;"/>
+            <Button text="Simpan" onAction="#handleSave" styleClass="button"/>
+        </HBox>
+    </children>
+</VBox>
