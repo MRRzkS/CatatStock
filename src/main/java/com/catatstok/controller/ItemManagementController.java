@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import com.catatstok.App;
 import java.io.IOException;
 
+// Controller untuk halaman Manajemen Barang
 public class ItemManagementController {
 
     @FXML
@@ -42,13 +43,14 @@ public class ItemManagementController {
 
     @FXML
     public void initialize() {
+        // Menghubungkan kolom tabel dengan property di model Item
         skuColumn.setCellValueFactory(cellData -> cellData.getValue().skuProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryProperty());
         unitColumn.setCellValueFactory(cellData -> cellData.getValue().unitProperty());
         stockColumn.setCellValueFactory(cellData -> cellData.getValue().stockProperty().asObject());
 
-        // Action Column (Update/Delete)
+        // Menambahkan tombol Update dan Delete di setiap baris
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button updateBtn = new Button("Update");
             private final Button deleteBtn = new Button("Delete");
@@ -80,18 +82,18 @@ public class ItemManagementController {
             }
         });
 
-        // Load data
+        // Memuat data dengan dukungan filter (FilteredList)
         filteredData = new FilteredList<>(DataService.getInstance().getItems(), p -> true);
         itemTable.setItems(filteredData);
 
-        // Populate Category Filter
+        // Mengisi pilihan filter kategori
         updateCategoryFilter();
         DataService.getInstance().getCategories().addListener((ListChangeListener<Category>) c -> updateCategoryFilter());
         
-        // Add listener to Category Filter
+        // Menambahkan listener untuk filter kategori
         categoryFilter.valueProperty().addListener((observable, oldValue, newValue) -> updatePredicate());
 
-        // Search filter
+        // Menambahkan listener untuk pencarian (search)
         searchField.textProperty().addListener((observable, oldValue, newValue) -> updatePredicate());
     }
 
@@ -108,6 +110,7 @@ public class ItemManagementController {
         }
     }
 
+    // Logic untuk memfilter data berdasarkan pencarian dan kategori
     private void updatePredicate() {
         String searchText = searchField.getText() != null ? searchField.getText().toLowerCase() : "";
         String selectedCategory = categoryFilter.getValue();

@@ -18,6 +18,7 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 
+// Controller untuk halaman Riwayat Transaksi Stok
 public class StockManagementController {
 
     @FXML
@@ -35,13 +36,14 @@ public class StockManagementController {
 
     @FXML
     public void initialize() {
+        // Setup kolom tabel
         dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFormattedDate()));
         typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
         skuColumn.setCellValueFactory(cellData -> cellData.getValue().itemSkuProperty());
         qtyColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
         userColumn.setCellValueFactory(cellData -> cellData.getValue().userProperty());
 
-        // Custom cell factory for Type to color code it
+        // Custom cell factory untuk memberi warna pada jenis transaksi (Masuk/Keluar)
         typeColumn.setCellFactory(column -> new TableCell<StockTransaction, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -52,10 +54,10 @@ public class StockManagementController {
                 } else {
                     setText(item);
                     if ("Stok Masuk".equals(item)) {
-                        setTextFill(Color.web("#198754")); // Green
+                        setTextFill(Color.web("#198754")); // Hijau untuk Stok Masuk
                         setStyle("-fx-font-weight: bold; -fx-background-color: #d1e7dd; -fx-background-radius: 15; -fx-padding: 2 10;");
                     } else {
-                        setTextFill(Color.web("#dc3545")); // Red
+                        setTextFill(Color.web("#dc3545")); // Merah untuk Stok Keluar
                         setStyle("-fx-font-weight: bold; -fx-background-color: #f8d7da; -fx-background-radius: 15; -fx-padding: 2 10;");
                     }
                 }

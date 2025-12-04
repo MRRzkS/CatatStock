@@ -4,12 +4,13 @@ import javafx.beans.property.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// Model class untuk mencatat Transaksi Stok (Masuk/Keluar)
 public class StockTransaction {
-    private final ObjectProperty<LocalDateTime> date;
-    private final StringProperty type; // "Masuk" or "Keluar"
-    private final StringProperty itemSku;
-    private final IntegerProperty quantity;
-    private final StringProperty user;
+    private final ObjectProperty<LocalDateTime> date; // Waktu transaksi
+    private final StringProperty type; // Jenis: "Masuk" atau "Keluar"
+    private final StringProperty itemSku; // SKU barang yang terlibat
+    private final IntegerProperty quantity; // Jumlah barang
+    private final StringProperty user; // User yang melakukan transaksi
 
     public StockTransaction() {
         this(LocalDateTime.now(), "", "", 0, "");
@@ -26,6 +27,7 @@ public class StockTransaction {
     public LocalDateTime getDate() { return date.get(); }
     public ObjectProperty<LocalDateTime> dateProperty() { return date; }
     
+    // Helper method untuk menampilkan tanggal dalam format yang mudah dibaca
     public String getFormattedDate() {
         return date.get().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }

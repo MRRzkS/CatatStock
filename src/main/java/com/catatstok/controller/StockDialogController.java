@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDateTime;
 
+// Controller untuk dialog pencatatan Stok Masuk/Keluar
 public class StockDialogController {
 
     @FXML private Label titleLabel;
@@ -36,7 +37,7 @@ public class StockDialogController {
 
             @Override
             public Item fromString(String string) {
-                return null; // Not needed for this use case
+                return null;
             }
         });
     }
@@ -45,6 +46,7 @@ public class StockDialogController {
         this.dialogStage = dialogStage;
     }
 
+    // Mengatur jenis transaksi (Masuk atau Keluar) dan menyesuaikan tampilan
     public void setType(boolean isInbound) {
         this.isInbound = isInbound;
         if (isInbound) {
@@ -62,6 +64,7 @@ public class StockDialogController {
         return okClicked;
     }
 
+    // Menyimpan transaksi stok
     @FXML
     private void handleSave() {
         if (isInputValid()) {
@@ -69,6 +72,7 @@ public class StockDialogController {
             int quantity = Integer.parseInt(quantityField.getText());
             String type = isInbound ? "Stok Masuk" : "Stok Keluar";
 
+            // Membuat object transaksi baru
             StockTransaction transaction = new StockTransaction(
                 LocalDateTime.now(),
                 type,
@@ -77,6 +81,7 @@ public class StockDialogController {
                 "Admin"
             );
 
+            // Menambahkan transaksi ke DataService (stok barang akan otomatis terupdate di sana)
             DataService.getInstance().addTransaction(transaction);
 
             okClicked = true;

@@ -11,26 +11,32 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+// Service class untuk mengelola data (Singleton Pattern)
+// Bertanggung jawab menyimpan dan memuat data dari file JSON
 public class DataService {
     private static DataService instance;
+    
+    // ObservableList digunakan agar perubahan data langsung ter-update di UI
     private ObservableList<Item> items;
     private ObservableList<StockTransaction> transactions;
     private ObservableList<Category> categories;
 
+    // Constructor private untuk Singleton
     private DataService() {
         items = FXCollections.observableArrayList();
         transactions = FXCollections.observableArrayList();
         categories = FXCollections.observableArrayList();
         
-        loadData();
+        loadData(); // Memuat data saat aplikasi mulai
         
         // Dummy data generation removed as per user request
 
     }
 
+    // Menyimpan data ke file JSON
     private void saveData() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(new JavaTimeModule()); // Support untuk LocalDateTime
         try {
             mapper.writeValue(new File("items.json"), new ArrayList<>(items));
             mapper.writeValue(new File("transactions.json"), new ArrayList<>(transactions));
@@ -40,6 +46,7 @@ public class DataService {
         }
     }
 
+    // Memuat data dari file JSON jika ada
     private void loadData() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
@@ -66,6 +73,7 @@ public class DataService {
         }
     }
 
+    // Method untuk mendapatkan instance tunggal (Singleton)
     public static DataService getInstance() {
         if (instance == null) {
             instance = new DataService();
@@ -91,8 +99,9 @@ public class DataService {
         return transactions;
     }
 
+    // Menambah transaksi baru dan mengupdate stok barang secara otomatis
     public void addTransaction(StockTransaction transaction) {
-        // Update item stock FIRST, so listeners on transactions see updated stock
+        // Update stok barang terlebih dahulu
         for (Item item : items) {
             if (item.getSku().equals(transaction.getItemSku())) {
                 if ("Stok Masuk".equals(transaction.getType())) {
@@ -104,8 +113,8 @@ public class DataService {
             }
         }
         
-        transactions.add(0, transaction); // Add to top, triggers listener
-        saveData();
+        transactions.add(0, transaction); // Menambahkan ke awal list agar muncul paling atas
+        saveData(); // Simpan perubahan ke file
     }
 
     public ObservableList<Category> getCategories() {
@@ -122,6 +131,7 @@ public class DataService {
         saveData();
     }
 
+    // Helper untuk generate ID Kategori otomatis (Auto-increment)
     public String generateNextCategoryId() {
         int maxId = 0;
         for (Category c : categories) {

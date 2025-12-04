@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import com.catatstok.App;
 import java.io.IOException;
 
+// Controller untuk halaman Dashboard
 public class DashboardController {
 
     @FXML
@@ -35,9 +36,9 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        updateSummary();
+        updateSummary(); // Update data saat inisialisasi
         
-        // Listen for changes in the lists themselves (add/remove)
+        // Menambahkan listener agar dashboard otomatis update jika ada perubahan data
         DataService.getInstance().getItems().addListener((ListChangeListener<Item>) c -> updateSummary());
         DataService.getInstance().getTransactions().addListener((ListChangeListener<StockTransaction>) c -> updateSummary());
     }
@@ -46,6 +47,7 @@ public class DashboardController {
         updateSummary();
     }
 
+    // Menghitung dan menampilkan ringkasan data
     private void updateSummary() {
         int totalItems = DataService.getInstance().getItems().size();
         int totalStock = DataService.getInstance().getItems().stream().mapToInt(Item::getStock).sum();
@@ -57,7 +59,7 @@ public class DashboardController {
         totalStockLabel.setText(String.valueOf(totalStock));
         todayTransactionsLabel.setText(String.valueOf(todayTransactions));
         
-        // Recent Activity
+        // Menampilkan 50 aktivitas transaksi terakhir
         recentActivityList.getItems().clear();
         DataService.getInstance().getTransactions().stream().limit(50).forEach(t -> {
             String activity = String.format("[%s] %s %s (%d)", 
@@ -66,7 +68,7 @@ public class DashboardController {
             recentActivityList.getItems().add(activity);
         });
 
-        // Low Stock (< 10)
+        // Menampilkan barang dengan stok menipis (< 10)
         lowStockList.getItems().clear();
         DataService.getInstance().getItems().stream()
                 .filter(i -> i.getStock() < 10)
@@ -90,6 +92,7 @@ public class DashboardController {
         showStockDialog(false);
     }
 
+    // Menampilkan dialog untuk menambah/edit barang
     private void showItemDialog(Item item) {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("view/ItemDialog.fxml"));

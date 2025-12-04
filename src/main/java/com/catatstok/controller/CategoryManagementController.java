@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import com.catatstok.App;
 import java.io.IOException;
 
+// Controller untuk halaman Manajemen Kategori
 public class CategoryManagementController {
 
     @FXML
@@ -28,11 +29,12 @@ public class CategoryManagementController {
 
     @FXML
     public void initialize() {
+        // Menghubungkan kolom tabel dengan property di model Category
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         descriptionColumn.setCellValueFactory(cellData -> cellData.getValue().descriptionProperty());
 
-        // Action Column (Update/Delete)
+        // Menambahkan tombol Update dan Delete di setiap baris
         actionColumn.setCellFactory(param -> new TableCell<>() {
             private final Button updateBtn = new Button("Update");
             private final Button deleteBtn = new Button("Delete");
@@ -64,6 +66,7 @@ public class CategoryManagementController {
             }
         });
 
+        // Mengisi tabel dengan data dari DataService
         categoryTable.setItems(DataService.getInstance().getCategories());
     }
 

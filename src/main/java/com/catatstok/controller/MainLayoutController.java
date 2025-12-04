@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// Controller utama yang mengatur layout dan navigasi sidebar
 public class MainLayoutController implements Initializable {
 
     @FXML
@@ -30,9 +31,10 @@ public class MainLayoutController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showDashboard();
+        showDashboard(); // Tampilkan dashboard saat pertama kali dibuka
     }
 
+    // Method helper untuk memuat view ke dalam bagian tengah (center) BorderPane
     private void loadView(String fxml) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/" + fxml + ".fxml"));
@@ -43,6 +45,7 @@ public class MainLayoutController implements Initializable {
         }
     }
 
+    // Mengatur style tombol sidebar agar terlihat aktif
     private void setActiveButton(Button button) {
         btnDashboard.getStyleClass().remove("sidebar-button-selected");
         btnBarang.getStyleClass().remove("sidebar-button-selected");
@@ -96,6 +99,6 @@ public class MainLayoutController implements Initializable {
 
     @FXML
     private void handleLogout() throws IOException {
-        App.setRoot("view/LoginView");
+        App.setRoot("view/LoginView"); // Kembali ke halaman login
     }
 }

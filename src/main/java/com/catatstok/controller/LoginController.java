@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 
+// Controller untuk halaman Login
 public class LoginController {
 
     @FXML
@@ -18,17 +19,18 @@ public class LoginController {
     @FXML
     private Label errorLabel;
 
+    // Method yang dipanggil saat tombol Login ditekan
     @FXML
     private void handleLogin() throws IOException {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Mock authentication
+        // Mock authentication (Login sederhana tanpa database user)
         if ("admin".equals(username) && "admin".equals(password)) {
-            App.setRoot("view/MainLayout");
+            App.setRoot("view/MainLayout"); // Pindah ke halaman utama jika sukses
         } else {
             errorLabel.setText("Username atau password salah!");
-            errorLabel.setVisible(true);
+            errorLabel.setVisible(true); // Tampilkan pesan error
         }
     }
 }

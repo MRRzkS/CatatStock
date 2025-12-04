@@ -2,7 +2,9 @@ package com.catatstok.model;
 
 import javafx.beans.property.*;
 
+// Model class untuk Barang/Item
 public class Item {
+    // Property menggunakan tipe JavaFX untuk data binding otomatis ke TableView
     private final StringProperty sku;
     private final StringProperty name;
     private final StringProperty category;
@@ -13,6 +15,7 @@ public class Item {
         this("", "", "", "", 0);
     }
 
+    // Constructor utama untuk inisialisasi barang baru
     public Item(String sku, String name, String category, String unit, int stock) {
         this.sku = new SimpleStringProperty(sku);
         this.name = new SimpleStringProperty(name);
@@ -21,6 +24,7 @@ public class Item {
         this.stock = new SimpleIntegerProperty(stock);
     }
 
+    // Getter, Setter, dan Property Accessor untuk SKU
     public String getSku() { return sku.get(); }
     public void setSku(String sku) { this.sku.set(sku); }
     public StringProperty skuProperty() { return sku; }

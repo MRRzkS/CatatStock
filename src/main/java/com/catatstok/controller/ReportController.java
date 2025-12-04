@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 
+// Controller untuk halaman Laporan (Export CSV)
 public class ReportController {
 
+    // Export laporan stok barang ke CSV
     @FXML
     private void exportItemReport() {
         FileChooser fileChooser = new FileChooser();
@@ -22,19 +24,16 @@ public class ReportController {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         fileChooser.setInitialFileName("laporan_barang.csv");
         
-        // Get the stage from any control, e.g., we can't easily get it here without a node reference.
-        // But we can assume the button that triggered this is part of the scene.
-        // For simplicity, let's just use a new Stage or try to get the current window if possible.
-        // A better way is to bind the controller to the main stage or pass the stage.
-        // However, fileChooser.showSaveDialog(null) works but might not be modal to the app.
-        // Let's try to get the active window.
+        // Mendapatkan stage aktif untuk menampilkan dialog save
         Stage stage = (Stage) javafx.stage.Window.getWindows().stream().filter(javafx.stage.Window::isShowing).findFirst().orElse(null);
 
         File file = fileChooser.showSaveDialog(stage);
 
         if (file != null) {
             try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                // Header CSV
                 writer.println("SKU;Nama Barang;Kategori;Satuan;Stok");
+                // Iterasi semua item dan tulis ke file
                 for (Item item : DataService.getInstance().getItems()) {
                     writer.printf("%s;%s;%s;%s;%d%n",
                         escapeSpecialCharacters(item.getSku()),
@@ -52,6 +51,7 @@ public class ReportController {
         }
     }
 
+    // Export laporan transaksi ke CSV
     @FXML
     private void exportTransactionReport() {
         FileChooser fileChooser = new FileChooser();
@@ -83,6 +83,7 @@ public class ReportController {
         }
     }
 
+    // Helper untuk menangani karakter khusus di CSV (misal koma atau quote)
     private String escapeSpecialCharacters(String data) {
         if (data == null) {
             return "";

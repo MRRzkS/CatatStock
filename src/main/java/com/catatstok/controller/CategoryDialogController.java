@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+// Controller untuk dialog Tambah/Edit Kategori
 public class CategoryDialogController {
 
     @FXML private Label titleLabel;
@@ -23,6 +24,7 @@ public class CategoryDialogController {
         this.dialogStage = dialogStage;
     }
 
+    // Mengisi form dengan data kategori jika sedang mode edit
     public void setCategory(Category category) {
         this.category = category;
 
@@ -33,7 +35,7 @@ public class CategoryDialogController {
             descriptionField.setText(category.getDescription());
         } else {
             titleLabel.setText("Tambah Kategori Baru");
-            idField.setText(DataService.getInstance().generateNextCategoryId());
+            idField.setText(DataService.getInstance().generateNextCategoryId()); // Auto-generate ID
         }
     }
 
@@ -41,6 +43,7 @@ public class CategoryDialogController {
         return okClicked;
     }
 
+    // Menyimpan data saat tombol Save ditekan
     @FXML
     private void handleSave() {
         if (isInputValid()) {
@@ -48,10 +51,12 @@ public class CategoryDialogController {
             String description = descriptionField.getText();
 
             if (category != null) {
+                // Mode Edit: Update data yang ada
                 category.setName(name);
                 category.setDescription(description);
             } else {
-                // ID is already generated and displayed in idField
+                // Mode Tambah: Buat object baru dan simpan ke DataService
+                // ID sudah digenerate dan ditampilkan di idField
                 category = new Category(idField.getText(), name, description);
                 DataService.getInstance().addCategory(category);
             }
@@ -66,6 +71,7 @@ public class CategoryDialogController {
         dialogStage.close();
     }
 
+    // Validasi input form
     private boolean isInputValid() {
         String errorMessage = "";
 
@@ -76,6 +82,7 @@ public class CategoryDialogController {
         if (errorMessage.length() == 0) {
             return true;
         } else {
+            // Tampilkan alert jika ada error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");

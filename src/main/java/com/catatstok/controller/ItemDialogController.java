@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+// Controller untuk dialog Tambah/Edit Barang
 public class ItemDialogController {
 
     @FXML private Label titleLabel;
@@ -26,6 +27,7 @@ public class ItemDialogController {
 
     @FXML
     public void initialize() {
+        // Mengisi ComboBox kategori dengan data dari DataService
         categoryComboBox.setItems(DataService.getInstance().getCategories());
         categoryComboBox.setConverter(new StringConverter<Category>() {
             @Override
@@ -44,19 +46,20 @@ public class ItemDialogController {
         this.dialogStage = dialogStage;
     }
 
+    // Mengisi form jika dalam mode edit
     public void setItem(Item item) {
         this.item = item;
 
         if (item != null) {
             titleLabel.setText("Update Barang");
             skuField.setText(item.getSku());
-            skuField.setDisable(true); // SKU cannot be changed
+            skuField.setDisable(true); // SKU tidak boleh diubah
             nameField.setText(item.getName());
             unitField.setText(item.getUnit());
             stockField.setText(String.valueOf(item.getStock()));
-            stockField.setDisable(true); // Stock managed via transactions
+            stockField.setDisable(true); // Stok hanya bisa diubah lewat transaksi
             
-            // Select category
+            // Memilih kategori yang sesuai
             for (Category c : categoryComboBox.getItems()) {
                 if (c.getName().equals(item.getCategory())) {
                     categoryComboBox.getSelectionModel().select(c);
@@ -73,6 +76,7 @@ public class ItemDialogController {
         return okClicked;
     }
 
+    // Menyimpan data barang
     @FXML
     private void handleSave() {
         if (isInputValid()) {
@@ -83,13 +87,13 @@ public class ItemDialogController {
             int stock = Integer.parseInt(stockField.getText());
 
             if (item != null) {
-                // Update
+                // Update barang yang ada
                 item.setName(name);
                 item.setCategory(category);
                 item.setUnit(unit);
-                // Stock not updated directly here for existing items usually, but let's allow it for simplicity or initial setup
+                // Stok tidak diupdate langsung di sini untuk item yang sudah ada
             } else {
-                // New
+                // Buat barang baru
                 item = new Item(sku, name, category, unit, stock);
                 DataService.getInstance().addItem(item);
             }
